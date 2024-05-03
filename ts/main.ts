@@ -86,7 +86,7 @@ function getBook():Book {
     let price = parseFloat(priceTextBox.value);
     if (isNaN(price) || price < 0) {
         isValidData = false;
-        priceTextBox.nextElementSibling.textContent = "Price must a positive number";
+        priceTextBox.nextElementSibling.textContent = "Price must be a positive number";
     }
 
     // Validate release date
