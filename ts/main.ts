@@ -105,7 +105,21 @@ function getBook():Book {
         addedBook.isbn = isbn;
         addedBook.price = price;
         addedBook.title = title;
-        addedBook.releaseDate = new Date(releaseDate);
+
+        // The value of the <input type="date"> is off by one day because of the time zone issues. This solution resolves the timezone issue.
+        // Split date string into an array "2023-10-24"
+        // Result would be {"2023", "10", "24"} index 0, 1, and 2. 2023 is the first element in the array.
+        const dateParts:string[] = releaseDate.split("-"); // https://www.w3schools.com/jsref/jsref_split.asp 
+        const year = parseInt(dateParts[0]);
+        const month = parseInt(dateParts[1]) - 1; // subtract 1 because months are index based
+        const day = parseInt(dateParts[2]);
+        const correctDate = new Date(year, month, day);
+
+        /* The split() method splits a string into an array of substrings. The split() method returns the new array.
+        The split() method does not change the original string. If (" ") is used as separator, the string is split between words. */
+
+        addedBook.releaseDate = correctDate; // this original line of code is the problem: addedBook.releaseDate = new Date(releaseDate);
+                                             // we created all the above const's and used an array to fix 
 
         return addedBook;
     }
