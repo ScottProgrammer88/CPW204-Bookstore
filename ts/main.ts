@@ -125,12 +125,40 @@ function isValidIsbn(data:string) {
 
 
 /**
- * Adds a Book object to web storage. Assumes all data is valid
+ * Adds a Book object to web page and to web storage. Assumes all data is valid
  * @param b The Book containing valid data to be added
  */
 function addBook(b:Book):void {
-    alert("Data was valid, book added");
+    // alert("Data was valid, book added");
     console.log(b);
+
+    // Add the book to the web page, let bookDiv = document.createElement("div"); bookDiv:HTMLDivElement to use explicit data type
+    let bookDiv:HTMLDivElement = document.createElement("div");
+
+    //    https://www.w3schools.com/JS/js_let.asp
+    //    https://www.w3schools.com/JS/js_const.asp
+    //    https://www.w3schools.com/jsref/prop_node_textcontent.asp
+    //    https://www.w3schools.com/jsref/met_node_appendchild.asp
+    //    https://www.w3schools.com/jsref/prop_html_innerhtml.asp
+    //    
+
+    let titleHeading = document.createElement("h2");
+    titleHeading.textContent = `${b.title} : ${b.isbn}`; // this would also work = b.title + ":" + b.isbn;
+    // Add h2 to book div <div><h2>Title : ISBN</h2></div>
+    bookDiv.appendChild(titleHeading); 
+
+    let bookDescription:HTMLParagraphElement = document.createElement("p");
+    bookDescription.textContent = `This book was released on ${b.releaseDate} and costs ${b.price}`;
+    bookDiv.appendChild(bookDescription);
+
+    // Add bookDiv to web page
+    // let bookListDisplay = document.querySelector("#book-display")
+    // bookListDisplay.appendChild(bookDiv); // Add the newly created book
+
+    document.querySelector("#book-display").appendChild(bookDiv); // This is the same as above but condensed into 1 line of code.
+
+    // document.querySelector("#book-display").innerHTML += `<div><h2>${b.title}:${b.isbn}</h2></div>`; Jo showed this example, but said "don't do this"
+
 }
 
 /**
